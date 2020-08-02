@@ -1,13 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ApplicationCore.SeedWork;
+using Infrastructure;
+using Infrastructure.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System;
 
 namespace Classeur_Magic_Application
 {
@@ -24,6 +27,8 @@ namespace Classeur_Magic_Application
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            AddInfrastructure(services);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +57,45 @@ namespace Classeur_Magic_Application
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        /// <summary>
+        /// Recuperation de la configuration
+        /// </summary>
+        /// <returns></returns>
+        private static IConfiguration GetConfiguration()
+        {
+            IConfigurationBuilder builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables();
+
+            return builder.Build();
+        }
+
+        private void AddInfrastructure(IServiceCollection services)
+        {
+            // Configuraiton du DataBaseContext ici on utilsie sql server mais un autre type de base peut etre configurer ...
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var migrationsAssembly = typeof(Context).GetTypeInfo().Assembly.GetName().Name;
+
+            services.AddDbContext<Context>(
+                options =>
+                {
+                    options.UseSqlServer(
+                        connectionString,
+                        sql =>
+                        {
+                            sql.MigrationsAssembly(migrationsAssembly);
+                            sql.EnableRetryOnFailure(
+                                maxRetryCount: 5,
+                                maxRetryDelay: TimeSpan.FromSeconds(10),
+                                errorNumbersToAdd: null);
+                        });
+                }
+            );
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

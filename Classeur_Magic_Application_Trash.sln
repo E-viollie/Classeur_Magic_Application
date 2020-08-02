@@ -5,9 +5,13 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Classeur_Magic_Application\Web.csproj", "{EFF3A4B3-5924-4EEB-966F-43E632B4DFBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationCore", "Application\ApplicationCore.csproj", "{D6A85D7E-BD00-4587-8CA3-E7F60ACF58DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationCore", "Application\ApplicationCore.csproj", "{D6A85D7E-BD00-4587-8CA3-E7F60ACF58DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{23589FA4-4898-4B7A-B1F9-71C53A32B197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{23589FA4-4898-4B7A-B1F9-71C53A32B197}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{648FEE9B-1475-4133-ADA4-F2F070EBFE16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6E0F87ED-5FAD-408C-A455-C9A6668B0036}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +34,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EFF3A4B3-5924-4EEB-966F-43E632B4DFBF} = {648FEE9B-1475-4133-ADA4-F2F070EBFE16}
+		{D6A85D7E-BD00-4587-8CA3-E7F60ACF58DA} = {648FEE9B-1475-4133-ADA4-F2F070EBFE16}
+		{23589FA4-4898-4B7A-B1F9-71C53A32B197} = {648FEE9B-1475-4133-ADA4-F2F070EBFE16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A380B1AE-178E-425A-82FF-391DC6653333}

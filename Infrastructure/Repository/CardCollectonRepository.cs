@@ -1,0 +1,27 @@
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interface;
+using Infrastructure.Config;
+using System;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Repository
+{
+    public class CardCollectonRepository : EfRepository<CardCollection>, IAsyncCardCollectionRepository
+    {
+        /// <summary>
+        /// contexte
+        /// </summary>
+#pragma warning disable CS0108 // Un membre masque un membre hérité ; le mot clé new est manquant
+        private readonly Context _context;
+#pragma warning restore CS0108 // Un membre masque un membre hérité ; le mot clé new est manquant
+
+        /// <summary>
+        /// constructeur
+        /// </summary>
+        /// <param name="context"></param>
+        public CardCollectonRepository(Context context) : base(context)
+        {
+            _context = context;
+        }
+    }
+}
