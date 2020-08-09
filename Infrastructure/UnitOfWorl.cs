@@ -9,14 +9,14 @@ namespace Infrastructure
 {
     public sealed class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly Context _context;
+        private readonly CardContext _context;
         private bool _disposed;
 
         /// <summary>
         /// Constructeur
         /// </summary>
         /// <param name="context"></param>
-        public UnitOfWork(Context context)
+        public UnitOfWork(CardContext context)
         {
             this._context = context;
         }

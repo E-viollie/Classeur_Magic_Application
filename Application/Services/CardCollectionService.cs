@@ -11,13 +11,13 @@ namespace ApplicationCore.Services
 {
     public class CardCollectionService
     {
-        private readonly CardService _cardService;
+        private readonly MtgApiManager.Lib.Service.CardService _cardService;
         private readonly IAsyncCardCollectionRepository _cardCollectionRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public CardCollectionService(IAsyncCardCollectionRepository cardCollectionRepository, IUnitOfWork unitOfWork)
         {
-            _cardService = new CardService();
+            _cardService = new MtgApiManager.Lib.Service.CardService();
             _cardCollectionRepository = cardCollectionRepository;
             _unitOfWork = unitOfWork;
         }

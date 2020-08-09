@@ -6,13 +6,13 @@ namespace Infrastructure.Config
     /// <summary>
     /// Context pour l'enregistrement en base de donnée
     /// </summary>
-    public class Context : DbContext
+    public class CardContext : DbContext
     {
         /// <summary>
         /// Constructeur
         /// </summary>
         /// <param name="options"></param>
-        public Context(DbContextOptions<Context> options) : base(options)
+        public CardContext(DbContextOptions<CardContext> options) : base(options)
         {
         }
 

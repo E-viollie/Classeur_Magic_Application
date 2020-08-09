@@ -73,13 +73,17 @@ namespace Classeur_Magic_Application
             return builder.Build();
         }
 
+        /// <summary>
+        /// Génère la base de données
+        /// </summary>
+        /// <param name="services"></param>
         private void AddInfrastructure(IServiceCollection services)
         {
             // Configuraiton du DataBaseContext ici on utilsie sql server mais un autre type de base peut etre configurer ...
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            var migrationsAssembly = typeof(Context).GetTypeInfo().Assembly.GetName().Name;
+            var migrationsAssembly = typeof(CardContext).GetTypeInfo().Assembly.GetName().Name;
 
-            services.AddDbContext<Context>(
+            services.AddDbContext<CardContext>(
                 options =>
                 {
                     options.UseSqlServer(

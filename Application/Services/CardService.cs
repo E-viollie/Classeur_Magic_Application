@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace ApplicationCore.Entities
 {
-    public class Service
+    public class CardService
     {
         public Exceptional<List<Card>> GetAllCards()
         {
-            CardService service = new CardService();
+            MtgApiManager.Lib.Service.CardService service = new MtgApiManager.Lib.Service.CardService();
             Exceptional<List<Card>> cards = service.All();
 
             return cards;

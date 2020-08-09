@@ -15,14 +15,14 @@ namespace Infrastructure.Repository
     /// <typeparam name="T"></typeparam>
     public class EfRepository<T> : IEfRepository<T> where T : Entity
     {
-        protected readonly Context _context;
+        protected readonly CardContext _context;
         private readonly DbSet<T> dbSet;
 
         /// <summary>
         /// constructeur
         /// </summary>
         /// <param name="context"></param>
-        public EfRepository(Context context)
+        public EfRepository(CardContext context)
         {
             _context = context;
             dbSet = _context.Set<T>();
