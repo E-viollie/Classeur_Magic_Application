@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
 {
-    public class CardCollectionService
+    public class CardCollectionService : ICardCollectionService
     {
         private readonly MtgApiManager.Lib.Service.CardService _cardService;
         private readonly IAsyncCardCollectionRepository _cardCollectionRepository;
@@ -88,7 +88,7 @@ namespace ApplicationCore.Services
             for (int i = 1; i <= quantity; i++)
             {
                 //par défault les cartes ajoutées ne sont pas soumise à l'échange ni dans un deck
-                await _cardCollectionRepository.AddAsync(new CardCollection(card));
+               _ = await _cardCollectionRepository.AddAsync(new CardCollection(card));
             }
 
             int affectedRows = await _unitOfWork.Save();

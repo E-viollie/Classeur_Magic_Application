@@ -21,7 +21,7 @@ namespace ApplicationCore.Entities
         public CardCollection(Card card)
         {
             Card = card;
-            InDeck = null;
+            DeckId = null;
             Exchange = false;
         }
 
@@ -34,7 +34,7 @@ namespace ApplicationCore.Entities
         public CardCollection(Card card, Guid? inDeck, bool exchange)
         {
             Card = card;
-            InDeck = inDeck;
+            DeckId = inDeck;
             Exchange = exchange;
         }
 
@@ -61,7 +61,7 @@ namespace ApplicationCore.Entities
         /// <summary>
         /// Présente dans un deck
         /// </summary>
-        public Guid? InDeck { get; set; }
+        public Guid? DeckId { get; set; }
 
         /// <summary>
         /// Soumise à l'échange
