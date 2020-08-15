@@ -1,5 +1,4 @@
 ﻿using ApplicationCore.SeedWork;
-using MtgApiManager.Lib.Model;
 using System;
 
 namespace ApplicationCore.Entities
@@ -7,20 +6,20 @@ namespace ApplicationCore.Entities
     /// <summary>
     /// Carte obtenue
     /// </summary>
-    public class CardCollection : Entity
+    public class CardPossessed : Entity
     {
         /// <summary>
         /// Constructeur vide
         /// </summary>
-        public CardCollection() { }
+        public CardPossessed() { }
 
         /// <summary>
         /// Constructeur
         /// </summary>
         /// <param name="card">Carte avec toutes les informations relatives</param>
-        public CardCollection(Card card)
+        public CardPossessed(string cardId)
         {
-            Card = card;
+            CardId = cardId;
             DeckId = null;
             Exchange = false;
         }
@@ -31,10 +30,10 @@ namespace ApplicationCore.Entities
         /// <param name="card">Carte avec toutes les informations relatives</param>
         /// <param name="inDeck">Présente dans un deck</param>
         /// <param name="exchange">Soumise à l'échange</param>
-        public CardCollection(Card card, Guid? inDeck, bool exchange)
+        public CardPossessed(string cardId, Guid? deckId, bool exchange)
         {
-            Card = card;
-            DeckId = inDeck;
+            CardId = cardId;
+            DeckId = deckId;
             Exchange = exchange;
         }
 
@@ -45,8 +44,8 @@ namespace ApplicationCore.Entities
         /// <param name="inDeck">Présente dans un deck</param>
         /// <param name="exchange">Soumise à l'échange</param>
         /// <param name="exchangeDate">Date d'échange de la carte</param>
-        public CardCollection(Card card, Guid? inDeck, bool exchange, DateTime? exchangeDate) 
-            : this(card, inDeck, exchange)
+        public CardPossessed(string cardId, Guid? deckId, bool exchange, DateTime? exchangeDate)
+            : this(cardId, deckId, exchange)
         {
             ExchangeDate = exchangeDate;
         }
@@ -56,7 +55,7 @@ namespace ApplicationCore.Entities
         /// <summary>
         /// Carte avec toutes les informations relatives 
         /// </summary>
-        public Card Card { get; set; }
+        public string CardId { get; set; }
 
         /// <summary>
         /// Présente dans un deck

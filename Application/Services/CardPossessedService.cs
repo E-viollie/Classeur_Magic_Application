@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
 {
-    public class CardCollectionService : ICardCollectionService
+    public class CardPossessedService : ICardPossessedService
     {
         private readonly MtgApiManager.Lib.Service.CardService _cardService;
-        private readonly IAsyncCardCollectionRepository _cardCollectionRepository;
+        private readonly IAsyncCardPossessedRepository _CardPossessedRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CardCollectionService(IAsyncCardCollectionRepository cardCollectionRepository, IUnitOfWork unitOfWork)
+        public CardPossessedService(IAsyncCardPossessedRepository CardPossessedRepository, IUnitOfWork unitOfWork)
         {
             _cardService = new MtgApiManager.Lib.Service.CardService();
-            _cardCollectionRepository = cardCollectionRepository;
+            _CardPossessedRepository = CardPossessedRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -62,7 +62,7 @@ namespace ApplicationCore.Services
         /// <param name="cardId"></param>
         /// <param name="quantity"></param>
         /// <returns></returns>
-        public async Task<bool> CreateCardCollectionWithCard(string cardId, int quantity)
+        public async Task<bool> CreateCardPossessedWithCard(string cardId, int quantity)
         {
             if (cardId is null)
             {
@@ -74,21 +74,12 @@ namespace ApplicationCore.Services
                 //todo :levée d'exception
             }
 
-            //appel à l'API pour trouver la carte correspondante
-            Card card = _cardService.Find(cardId).Value;
-
-            if (card is null)
-            {
-                //todo :levée d'exception
-            }
-
             bool successAdded;
 
 
             for (int i = 1; i <= quantity; i++)
             {
-                //par défault les cartes ajoutées ne sont pas soumise à l'échange ni dans un deck
-               _ = await _cardCollectionRepository.AddAsync(new CardCollection(card));
+                await _CardPossessedRepository.AddAsync(new CardPossessed(cardId));
             }
 
             int affectedRows = await _unitOfWork.Save();
@@ -101,8 +92,8 @@ namespace ApplicationCore.Services
         /// récupérer une carte
         /// </summary>
         /// <param name="collectionId">Guid de la carte en notre possession</param>
-        /// <returns><see cref="CardCollection"/> carte </returns>
-        public async Task<CardCollection> GetCardPossessed(Guid collectionId)
+        /// <returns><see cref="CardPossessed"/> carte </returns>
+        public async Task<CardPossessed> GetCardPossessed(Guid collectionId)
         {
             if (Guid.Empty == collectionId)
             {
@@ -110,22 +101,22 @@ namespace ApplicationCore.Services
             }
 
             //Récupération de la liste de carte posséder
-            CardCollection cardCollection = await _cardCollectionRepository.FindByIdAsync(collectionId);
+            CardPossessed CardPossessed = await _CardPossessedRepository.FindByIdAsync(collectionId);
 
 
-            return cardCollection;
+            return CardPossessed;
         }
 
         /// <summary>
         /// Récupération de toutes les cartes
         /// </summary>
-        /// <returns><see cref="CardCollection"/>liste</returns>        
-        public async Task<IReadOnlyList<CardCollection>> GetAllCardPossessed()
+        /// <returns><see cref="CardPossessed"/>liste</returns>        
+        public async Task<IReadOnlyList<CardPossessed>> GetAllCardPossessed()
         {
             //Récupération de la liste de carte posséder
-            IReadOnlyList<CardCollection> cardCollection = await _cardCollectionRepository.FindAsync();
+            IReadOnlyList<CardPossessed> CardPossessed = await _CardPossessedRepository.FindAsync();
 
-            return cardCollection;
+            return CardPossessed;
         }
 
         /// <summary>
@@ -134,23 +125,23 @@ namespace ApplicationCore.Services
         /// <param name="collectionId">guid: id de la carte à mettre à jour</param>
         /// <param name="cardToUpdate">Carte avec les modifications à sauvegarder</param>
         /// <returns>bool : true => réussi, false => échoué</returns>
-        public async Task<bool> UpdateCardCollectionModifyCard(Guid collectionId, CardCollection cardToUpdate)
+        public async Task<bool> UpdateCardPossessedModifyCard(Guid collectionId, CardPossessed cardToUpdate)
         {
             if (Guid.Empty == collectionId)
             {
                 //todo :levée d'exception
             }
 
-            CardCollection cardCollection = await _cardCollectionRepository.FindByIdAsync(collectionId);
+            CardPossessed CardPossessed = await _CardPossessedRepository.FindByIdAsync(collectionId);
 
-            if (cardCollection is null)
+            if (CardPossessed is null)
             {
                 //todo :levée d'exception
             }
 
-            cardCollection = cardToUpdate;
+            CardPossessed = cardToUpdate;
 
-            await _cardCollectionRepository.UpdateAsync(cardCollection);
+            await _CardPossessedRepository.UpdateAsync(CardPossessed);
 
             int affectedRows = await _unitOfWork.Save();
 
@@ -164,14 +155,14 @@ namespace ApplicationCore.Services
         /// </summary>
         /// <param name="collectionId">Guid : id de la carte à supprimer</param>
         /// <returns>bool : true => réussi, false => échoué</returns>
-        public async Task<bool> DeleteCardCollection(Guid collectionId)
+        public async Task<bool> DeleteCardPossessed(Guid collectionId)
         {
             if (Guid.Empty.Equals(collectionId))
             {
                 //todo :levée d'exception
             }
 
-            _cardCollectionRepository.DeleteAsync(collectionId);
+            _CardPossessedRepository.DeleteAsync(collectionId);
 
             int affectedRows = await _unitOfWork.Save();
 

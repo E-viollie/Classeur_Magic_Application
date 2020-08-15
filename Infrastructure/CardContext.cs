@@ -1,7 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Config
+namespace Infrastructure
 {
     /// <summary>
     /// Context pour l'enregistrement en base de donnée
@@ -21,12 +21,14 @@ namespace Infrastructure.Config
         /// <summary>
         /// DbSet d'une collection de card
         /// </summary>
-        public DbSet<CardCollection> cardCollection { get; set; }
+        public DbSet<CardPossessed> CardPossessed { get; set; }
 
         /// <summary>
         /// DbSet de d'un deck
         /// </summary>
         public DbSet<Deck> Decks { get; set; }
+
+
 
     }
 }

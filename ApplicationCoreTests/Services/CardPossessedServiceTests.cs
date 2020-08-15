@@ -14,43 +14,42 @@ using MtgApiManager.Lib.Dto;
 namespace ApplicationCore.Services.Tests
 {
     [TestClass()]
-    public class CardCollectionServiceTests
+    public class CardPossessedServiceTests
     {
 
-        private readonly Mock<IAsyncCardCollectionRepository> ICardCollectionRepoMock;
+        private readonly Mock<IAsyncCardPossessedRepository> ICardPossessedRepoMock;
 
         [TestMethod()]
-        public async Task CreateAsyncCardCollectionTest()
+        public async Task CreateAsyncCardPossessedTest()
         {
-            Card cardMock = new Card();
             DateTime todayDate = DateTime.Today;
 
-            CardCollection collection = new CardCollection();
+            CardPossessed collection = new CardPossessed();
             collection.ExchangeDate = todayDate;
             collection.DeckId = Guid.Empty;
             collection.Exchange = false;
-            collection.Card = cardMock;
+            collection.CardId = Faker.Lorem.GetFirstWord();
 
-            ICardCollectionRepoMock.Setup(c => c.AddAsync(It.IsAny<CardCollection>())).ReturnsAsync(collection);
+            ICardPossessedRepoMock.Setup(c => c.AddAsync(It.IsAny<CardPossessed>())).ReturnsAsync(collection);
             
             Mock<IUnitOfWork> UnitOfWorkMock = new Mock<IUnitOfWork>();
             UnitOfWorkMock.Setup(x => x.Save()).ReturnsAsync(1);
 
-            CardCollection CardCollectionToCreate = new CardCollection();
-            CardCollectionToCreate.ExchangeDate = todayDate;
-            CardCollectionToCreate.DeckId = Guid.Empty;
-            CardCollectionToCreate.Exchange = false;
-            CardCollectionToCreate.Card = cardMock;
+            CardPossessed CardPossessedToCreate = new CardPossessed();
+            CardPossessedToCreate.ExchangeDate = todayDate;
+            CardPossessedToCreate.DeckId = Guid.Empty;
+            CardPossessedToCreate.Exchange = false;
+            CardPossessedToCreate.CardId = Faker.Lorem.GetFirstWord();
 
-            CardCollectionService service = new CardCollectionService(ICardCollectionRepoMock.Object, UnitOfWorkMock.Object);
+            CardPossessedService service = new CardPossessedService(ICardPossessedRepoMock.Object, UnitOfWorkMock.Object);
 
-            bool result = await service.CreateCardCollectionWithCard(cardMock.Id, 1);
+            bool result = await service.CreateCardPossessedWithCard(collection.CardId, 1);
 
             Assert.Equals(result, true);
         }
 
         [TestMethod()]
-        public void CardCollectionServiceTest()
+        public void CardPossessedServiceTest()
         {
 
             throw new NotImplementedException();
@@ -69,7 +68,7 @@ namespace ApplicationCore.Services.Tests
         }
 
         [TestMethod()]
-        public void CreateCardCollectionWithCardTest()
+        public void CreateCardPossessedWithCardTest()
         {
             throw new NotImplementedException();
         }
@@ -87,13 +86,13 @@ namespace ApplicationCore.Services.Tests
         }
 
         [TestMethod()]
-        public void UpdateCardCollectionModifyCardTest()
+        public void UpdateCardPossessedModifyCardTest()
         {
             throw new NotImplementedException();
         }
 
         [TestMethod()]
-        public void DeleteCardCollectionTest()
+        public void DeleteCardPossessedTest()
         {
             throw new NotImplementedException();
         }

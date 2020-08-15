@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
 {
-    public class CardCollectionRepository : EfRepository<CardCollection>, IAsyncCardCollectionRepository
+    public class CardPossessedRepository : EfRepository<CardPossessed>, IAsyncCardPossessedRepository
     {
         /// <summary>
         /// contexte
@@ -19,7 +19,7 @@ namespace Infrastructure.Repository
         /// constructeur
         /// </summary>
         /// <param name="context"></param>
-        public CardCollectionRepository(CardContext context) : base(context)
+        public CardPossessedRepository(CardContext context) : base(context)
         {
             _context = context;
         }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ApplicationCore.Interface
 {
-    public interface IAsyncCardCollectionRepository : IEfRepository<CardCollection>
+    public interface IAsyncCardPossessedRepository : IEfRepository<CardPossessed>
     {
     }
 }
