@@ -21,7 +21,7 @@ namespace Infrastructure
         /// <summary>
         /// DbSet d'une collection de card
         /// </summary>
-        public DbSet<CardPossessed> CardPossessed { get; set; }
+        public DbSet<Card> Cards { get; set; }
 
         /// <summary>
         /// DbSet de d'un deck

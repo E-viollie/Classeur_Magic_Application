@@ -25,7 +25,7 @@ namespace ApplicationCore.SeedWork
         /// </summary>
         /// <param name="id">Guid correspondant à l'entity que l'on souhaite récupérer</param>
         /// <returns>l'entity</returns>
-        public Task<T> FindByIdAsync(Guid id);
+        public Task<T> FindByIdAsync(int? id);
 
         /// <summary>
         /// Mise à jour de l'entity
@@ -38,7 +38,7 @@ namespace ApplicationCore.SeedWork
         /// Suppression de l'entity
         /// </summary>
         /// <param name="Id">Guid correspondant à l'entity que l'on souhaite supprimer</param>
-        public void DeleteAsync(Guid Id);
+        public void DeleteAsync(int? Id);
 
     }
 }

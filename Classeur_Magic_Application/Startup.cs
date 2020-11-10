@@ -1,17 +1,14 @@
 using ApplicationCore.SeedWork;
 using Infrastructure;
-using Infrastructure.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore.Design;
-using System;
 
 namespace Classeur_Magic_Application
 {
@@ -28,8 +25,8 @@ namespace Classeur_Magic_Application
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            AddInfrastructure(services);
-            
+            AddInfrastructure_SQLSERVER(services);
+            //AddInfrastructure_MYSQL(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,11 +75,11 @@ namespace Classeur_Magic_Application
         /// Génère la base de données
         /// </summary>
         /// <param name="services"></param>
-        private void AddInfrastructure(IServiceCollection services)
+        private void AddInfrastructure_SQLSERVER(IServiceCollection services)
         {
             // Configuraiton du DataBaseContext ici on utilsie sql server mais un autre type de base peut etre configurer ...
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            var migrationsAssembly = typeof(CardContext).GetTypeInfo().Assembly.GetName().Name;
+            string connectionString = Configuration.GetConnectionString("SQLSERVER_Connection");
+            string migrationsAssembly = typeof(CardContext).GetTypeInfo().Assembly.GetName().Name;
 
             services.AddDbContext<CardContext>(
                 options =>
@@ -102,5 +99,28 @@ namespace Classeur_Magic_Application
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
+
+        /*  private void AddInfrastructure_MYSQL(IServiceCollection services)
+          {
+              var connectionString = Configuration.GetConnectionString("MYSQL_Connection");
+              var migrationsAssembly = typeof(CardContext).GetTypeInfo().Assembly.GetName().Name;
+
+              services.AddDbContext<CardContext>(
+                  options =>
+                  {
+                      options.Use(
+                          connectionString,
+                          sql =>
+                          {
+                              sql.MigrationsAssembly(migrationsAssembly);
+                              sql.EnableRetryOnFailure(
+                                  maxRetryCount: 5,
+                                  maxRetryDelay: TimeSpan.FromSeconds(10),
+                                  errorNumbersToAdd: null);
+                          });
+                  }
+              );
+
+          */
     }
 }

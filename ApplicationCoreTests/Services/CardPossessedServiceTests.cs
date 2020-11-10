@@ -16,32 +16,30 @@ namespace ApplicationCore.Services.Tests
     [TestClass()]
     public class CardPossessedServiceTests
     {
-
-        private readonly Mock<IAsyncCardPossessedRepository> ICardPossessedRepoMock;
+        //TODO : Test à reprendre 
+        private readonly Mock<IAsyncCardRepository> ICardPossessedRepoMock;
 
         [TestMethod()]
         public async Task CreateAsyncCardPossessedTest()
         {
             DateTime todayDate = DateTime.Today;
 
-            CardPossessed collection = new CardPossessed();
+            Entities.Card collection = new Entities.Card();
             collection.ExchangeDate = todayDate;
-            collection.DeckId = Guid.Empty;
-            collection.Exchange = false;
+            //collection.DeckId = Guid.Empty;
             collection.CardId = Faker.Lorem.GetFirstWord();
 
-            ICardPossessedRepoMock.Setup(c => c.AddAsync(It.IsAny<CardPossessed>())).ReturnsAsync(collection);
+            ICardPossessedRepoMock.Setup(c => c.AddAsync(It.IsAny<Entities.Card>())).ReturnsAsync(collection);
             
             Mock<IUnitOfWork> UnitOfWorkMock = new Mock<IUnitOfWork>();
             UnitOfWorkMock.Setup(x => x.Save()).ReturnsAsync(1);
 
-            CardPossessed CardPossessedToCreate = new CardPossessed();
+            Entities.Card CardPossessedToCreate = new Entities.Card();
             CardPossessedToCreate.ExchangeDate = todayDate;
-            CardPossessedToCreate.DeckId = Guid.Empty;
-            CardPossessedToCreate.Exchange = false;
+            //CardPossessedToCreate.DeckId = Guid.Empty;
             CardPossessedToCreate.CardId = Faker.Lorem.GetFirstWord();
 
-            CardPossessedService service = new CardPossessedService(ICardPossessedRepoMock.Object, UnitOfWorkMock.Object);
+            CardService service = new CardService(ICardPossessedRepoMock.Object, UnitOfWorkMock.Object);
 
             bool result = await service.CreateCardPossessedWithCard(collection.CardId, 1);
 

@@ -63,7 +63,7 @@ namespace Infrastructure.Repository
         }
 
         /// <inheritdoc/>
-        public async Task<T> FindByIdAsync(Guid id)
+        public async Task<T> FindByIdAsync(int? id)
         {
             T getAsync = await dbSet.FindAsync(id);
             return getAsync;
@@ -78,7 +78,7 @@ namespace Infrastructure.Repository
         }
 
         /// <inheritdoc/>
-        public async void DeleteAsync(Guid id)
+        public async void DeleteAsync(int? id)
         {
             T getDeleted = await FindByIdAsync(id);
             dbSet.Remove(getDeleted);

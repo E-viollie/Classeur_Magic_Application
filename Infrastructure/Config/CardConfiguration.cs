@@ -6,13 +6,16 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Infrastructure.Config
 {
-    public class CardPossessedConfiguration : IEntityTypeConfiguration<CardPossessed>, IEntityTypeConfiguration
+    public class CardConfiguration : IEntityTypeConfiguration<Card>, IEntityTypeConfiguration
     {
-        public void Configure(EntityTypeBuilder<CardPossessed> builder)
+        public void Configure(EntityTypeBuilder<Card> builder)
         {
+            //builder.ToTable("CARDS");
+
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.Id).HasDefaultValueSql("NEWID()");
-            builder.
+            builder.Property(e => e.Id)
+                   .ValueGeneratedOnAdd();
+
         }
     }
 }

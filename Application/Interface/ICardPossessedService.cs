@@ -1,6 +1,6 @@
 ﻿namespace ApplicationCore.Interface
 {
-    public interface ICardPossessedService
+    public interface ICardService
     {
     }
 }

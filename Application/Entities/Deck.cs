@@ -1,5 +1,4 @@
 ﻿using ApplicationCore.SeedWork;
-using MtgApiManager.Lib.Model;
 using System.Collections.Generic;
 
 namespace ApplicationCore.Entities
@@ -21,12 +20,10 @@ namespace ApplicationCore.Entities
         /// <param name="mainBoard">Liste de carte principale du Deck</param>
         /// <param name="sideDeck">Liste de carte pouvant être rajouter au Deck</param>
         /// <param name="maybeDeck">Liste de carte pouvant être rajouter au Deck</param>
-        public Deck(string name, List<CardPossessed> mainBoard, List<CardPossessed> sideDeck, List<CardPossessed> maybeDeck)
+        public Deck(string name, List<Card> cardList)
         {
             Name = name;
-            MainBoard = mainBoard;
-            SideDeck = sideDeck;
-            MaybeDeck = maybeDeck;
+            CardList = cardList;
         }
 
 
@@ -38,17 +35,7 @@ namespace ApplicationCore.Entities
         /// <summary>
         /// Liste de carte principale du Deck 
         /// </summary>
-        public List<CardPossessed> MainBoard { get; set; }
-
-        /// <summary>
-        /// Liste de carte secondaire du Deck
-        /// </summary>
-        public List<CardPossessed> SideDeck { get; set; }
-
-        /// <summary>
-        /// Liste de carte pouvant être rajouter au Deck
-        /// </summary>
-        public List<CardPossessed> MaybeDeck { get; set; }
+        public List<Card> CardList { get; set; }
 
     }
 }

@@ -8,12 +8,12 @@ namespace ApplicationCore.SeedWork
     public abstract class Entity
     {
         private int? _requestedHashCode;
-        private Guid _Id;
+        private int? _Id;
 
         /// <summary>
         /// Id 
         /// </summary>
-        public virtual Guid Id
+        public virtual int? Id
         {
             get => _Id;
             set => _Id = value;
